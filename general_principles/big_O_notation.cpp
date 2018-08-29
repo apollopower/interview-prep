@@ -10,7 +10,7 @@
 
 // O(1) runtime, "Constant Time":
 void printFirstItem(const vector<int>& items) {
-    std::cout << items[0] << endl;
+    cout << items[0] << endl;
 }
 
 // O(n) runtime, "Linear Time":
