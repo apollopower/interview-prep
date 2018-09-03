@@ -80,6 +80,16 @@ void mergeSort(vector<int>& vectorToSort)
         // sortedLeft's first element comes next
         // if it's less than sortedRight's first
         // element or if sortedRight is empty
-        if (currentLeftIndex < left.size())
+        if (currentLeftIndex < left.size()
+                && (currentRightIndex >= right.size()
+                || left[currentLeftIndex] < right[currentRightIndex]))
+        {
+            vectorToSort[currentSortedIndex] = left[currentLeftIndex];
+            ++currentLeftIndex;
+        }
+        else {
+            vectorToSort[currentSortedIndex] = right[currentRightIndex];
+            ++currentRightIndex; 
+        }
     }
 }
