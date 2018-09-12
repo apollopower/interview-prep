@@ -2,41 +2,51 @@
 
 using namespace std;
 
-struct Node 
-{
-  int val;
-  Node* prev;
-  Node* next;
+struct Node {
+    int value_;
+    Node* next_;
 };
 
-Node* buildNode(Node* p_list, int num)
+Node* newNode(Node* head, int value)
 {
-  Node* new_node = new Node;
-  new_node->val = num;
-  new_node->prev = nullptr;
-  new_node->next = p_list;
-  return new_node;
+    Node* newNode = new Node;
+    newNode->value_ = value;
+    newNode->next_ = nullptr;
+    return newNode;
 }
 
+void deleteNode(Node* list, int value)
+{
+    Node* current = list;
 
+    while (current != nullptr)
+    {
+        Node* next = current->next_;
+        if (next->value_ == value)
+        {
+            current->next_ = next->next_;
+            delete next;
+        }
+    }
+}
 
 int main()
 {
-  Node* p_list = nullptr;
+    Node* list = nullptr;
+    
+    for (int i = 0; i < 10; i++)
+    {
+        list = newNode(list, i);
+    }
 
-  for (int i = 0; i < 10; i++)
-  {
-    p_list = buildNode(p_list, i);
-  }
+    deleteNode(list, 6);
 
-  // cout << p_list->val << endl;
-  
-  Node* current_node = p_list;
+    // Node* currentNode = list;
 
-  while (current_node != nullptr)
-  {
-    cout << current_node->val << endl;
-    current_node = current_node->next;
-  }
-
+    // while (currentNode)
+    // {
+    //     cout << currentNode->value_ << endl;
+    //     currentNode = currentNode->next_;
+    // }
+    return 0;
 }
