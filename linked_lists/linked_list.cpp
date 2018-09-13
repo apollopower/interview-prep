@@ -1,52 +1,98 @@
 #include <iostream>
 
-using namespace std;
-
-struct Node {
+// Our Node struct, specifing an int value and pointer to the
+// next node:
+struct Node
+{
     int value_;
     Node* next_;
 };
 
-Node* newNode(Node* head, int value)
+// Our linked list class, which will contain all the functions.
+// We specify two important pointers for the head and tail of
+// the list, and we initialize them to null to avoid garbage
+// values
+class List
 {
-    Node* newNode = new Node;
-    newNode->value_ = value;
-    newNode->next_ = nullptr;
-    return newNode;
-}
+    private:
 
-void deleteNode(Node* list, int value)
-{
-    Node* current = list;
-
-    while (current != nullptr)
-    {
-        Node* next = current->next_;
-        if (next->value_ == value)
-        {
-            current->next_ = next->next_;
-            delete next;
-        }
-    }
-}
-
-int main()
-{
-    Node* list = nullptr;
+        Node* head;
+        Node* tail;
     
-    for (int i = 0; i < 10; i++)
+    public:
+
+        List()
+        {
+            head = nullptr;
+            tail = nullptr;
+        }
+
+        // Function prototypes
+        void createNode(int value);
+        void display();
+        void insertStart(int value);
+        void insertPosition(int pos, int value);
+
+};
+
+// Create a new node:
+void List::createNode(int value)
+{
+    // Creating our new node. Setting it as temp, as we
+    // we will delete it after proper allocation:
+
+    Node* temp = new Node; // IMPORTANT, allocator memory for temp node.
+    temp->value_ = value;
+    temp->next_ = nullptr;
+
+    // If head is null, list is empty! 
+    if (head == nullptr)
     {
-        list = newNode(list, i);
+        head = temp;
+        tail = temp;
+        delete temp;
     }
+    // We already have a list (And tail is already defined if 
+    // there is one, see conditional above), so we set
+    // tail->next_ equal to temp, then get rid of it.
+    else
+    {
+        tail->next_ = temp;
+        delete temp;
+    }
+}
 
-    deleteNode(list, 6);
+void List::display()
+{
+    Node* temp = new Node;
+    temp = head;
 
-    // Node* currentNode = list;
+    while (temp != nullptr)
+    {
+        cout << temp->value_ << endl;
+        temp = temp->next_;
+    }
+    delete temp;
+}
 
-    // while (currentNode)
-    // {
-    //     cout << currentNode->value_ << endl;
-    //     currentNode = currentNode->next_;
-    // }
-    return 0;
+void List::insertStart(int value)
+{
+    // Allocate space for new node
+    Node* newNode = new Node;
+    // Set value of new node
+    newNode->value_ = value;
+    // Point it to the current head node
+    newNode->next_ = head;
+    // set newNode as the head (note this still
+    // keeps newNode pointed to the old head, it
+    // doesn't rewrite the old value of head above)
+    head = newNode;
+}
+
+void List::insertPosition(int position, int value)
+{
+    Node* current = new Node;
+    current = head;
+
+    // 
 }
