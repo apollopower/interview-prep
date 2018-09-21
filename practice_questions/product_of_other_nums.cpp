@@ -20,7 +20,7 @@ vector<int> productOfOtherNums(vector<int> nums)
     int prevProduct = 1;
 
     // First pass: insert product of all numbers BEFORE given index
-    for (int i = 0; i < nums.size(); i++)
+    for (size_t i = 0; i < nums.size(); i++)
     {
         // push the prevProduct in products, which associates to the current
         // number's position in nums
@@ -35,13 +35,16 @@ vector<int> productOfOtherNums(vector<int> nums)
 
     prevProduct = 1;
 
-    for (int i = nums.size() - 1; i > -1; i--)
+    // Note the special size_t backwards for-loop
+    for (size_t i = nums.size(); i > 0; i--)
     {
+        // j will represent the index:
+        size_t j = i - 1;
         // Values are already inside product, we just multiply the current
         // ones with prevProduct
-        products[i] *= prevProduct;
+        products[j] *= prevProduct;
         // Just like before, keep track of new prevProduct
-        prevProduct *= nums[i];
+        prevProduct *= nums[j];
     }
 
     return products; // done!
