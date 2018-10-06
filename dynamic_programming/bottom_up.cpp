@@ -33,7 +33,7 @@ int bottomUpProduct1ToN(int n)
         product *= i;
     }
 
-    return product;
+    return product; 
 }
 
 // This solution uses O(n) time and O(1) space, where the recursive solution
