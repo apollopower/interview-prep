@@ -109,6 +109,60 @@ void colorGraph(const vector<GraphNode*>& graph, const vector<string>& colors)
 
 
 
+// OTHER SOLUTION : ITERATING OVER VECTOR OF NODES
+
+void colorGraph(const vector<GraphNode*>& graph, const vector<string>& colors)
+{
+    for (auto node : graph)
+    {
+        // Keeping track of all node's neighbors
+        auto neighbors = node->getNeighbors();
+
+        // Set for illegalColors that will belong to neighbors.
+        // if we have a color in here for a specific iteration
+        // we will not be able to use it
+        unordered_set<string> illegalColors;
+
+        for (auto neighbor : neighbors)
+        {
+            // Edge case: node has a loop, which makes it impossible
+            // to solve the problem. Throw an exception
+            if (neighbor == node)
+            {
+                throw invalid_argument("Can't color node that has a loop!");
+            }
+
+            // For the neighbor, check if it has a color. If so,
+            // add it to our set:
+            if (neighbor->hasColor())
+            {
+                illegalColors.insert(neighbor->getColor());
+            }
+
+        }
+
+        // Now to color in our current node. We iterate through our color
+        // options: if its not in the set, we color in our node with that
+        // given color
+        for (const auto& color : colors)
+        {
+            if (illegalColors.find(color) == illegalColors.end())
+            {
+                // Didn't find this color!
+                node->setColor(color);
+
+                // Now we set the color, break the loop since we 
+                // dont need to check other colors
+                break;
+            }
+        }
+    }
+
+    return;
+}
+
+
+
 
 
 
