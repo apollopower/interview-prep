@@ -53,3 +53,24 @@ vector<int> productOfOtherNums(vector<int> nums)
 // To track all products of other numbers in an array/vector, we are taking:
 // O(n) Time
 // O(n) Space
+
+vector<int> productOfOtherNums(vector<int> arr)
+{
+    vector<int> result;
+
+    int currentProduct = 1;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        result[i] = currentProduct;
+        currentProduct *= arr[i];
+    }
+
+    currentProduct = 1;
+    for (int i = arr.size() - 1; i > -1; i--)
+    {
+        result[i] *= currentProduct;
+        currentProduct *= arr[i];
+    }
+
+    return result;
+}
