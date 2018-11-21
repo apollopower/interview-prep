@@ -1,5 +1,5 @@
-# Given a sorted array, write an algorithm to create a tree from the
-# array with a minimum height:
+# Given a sorted array, write an algorithm to create a binary search tree from the
+# array with the smallest height possible:
 
 class TreeNode:
 
@@ -42,11 +42,8 @@ def tree_depth(root):
 
     node, level = node_stack.pop()
 
-    if level < max_level:
-      break
-    else:
+    if level > max_level:
       max_level = level
-
 
     if node.left:
       node_stack.append((node.left, level + 1))
