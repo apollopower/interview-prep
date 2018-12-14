@@ -22,8 +22,6 @@ friend_1 = "jonas"
 friend_2 = "mufasa"
 
 
-
-
 # ANSWER
 
 # The key to begin working on some kind of solution is framing this
