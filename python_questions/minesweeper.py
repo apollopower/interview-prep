@@ -27,21 +27,24 @@ class GameBoard:
             tile = self.tiles[x][y]
             if not tile.mine:
                 tile.mine = True
-                tile.icon = '*'
                 self.empty_tiles -= 1
     
     def update_board(self, x, y):
         tile = self.tiles[x][y]
-        if not tile.mine:
-            # Not a mine, calculate how many mines sorround this tile
-            tile.hidden = False
-            self.empty_tiles -= 1
-            tile.icon = self.sorrounding_mines(x, y)
+        if False:
+            tile.icon = '!'
         else:
-            return {'loss': True}
+            if not tile.mine:
+                # Not a mine, calculate how many mines sorround this tile
+                tile.hidden = False
+                self.empty_tiles -= 1
+                tile.icon = self.sorrounding_mines(x, y)
+            else:
+                return False
     
     def sorrounding_mines(self, x, y):
         return ' '
+    
 
     def print_board(self):
         for y in range(self.height):
@@ -49,8 +52,14 @@ class GameBoard:
                 print(self.tiles[x][y].icon, end=" ")
             print("")
 
-game_board = GameBoard(10, 10)
-game_board.add_mines(10)
+def player_wins():
+    print("You win!")
+
+def player_loses():
+    print("You lose...")
+
+game_board = GameBoard(5, 5)
+game_board.add_mines(5)
 
 game_board.print_board()
 
@@ -59,12 +68,13 @@ print("Welcome to minesweeper!")
 
 # Part 2 - Game Loop
 while game_board.empty_tiles > 0:
+
     user_input = input("Please input x and y coordinates, seperated by a space, to choose a tile: ")
     coord_x, coord_y = int(user_input.split(" ")[0]), int(user_input.split(" ")[1])
 
-    game_board.update_board(coord_x - 1, coord_y - 1)
+    update = game_board.update_board(coord_x - 1, coord_y - 1)
 
     game_board.print_board()
 
 # Part 3 - Player Updates
-print("You Win!")
+player_wins()
