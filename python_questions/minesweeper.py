@@ -31,19 +31,48 @@ class GameBoard:
     
     def update_board(self, x, y):
         tile = self.tiles[x][y]
-        if False:
-            tile.icon = '!'
+
+        if not tile.mine:
+            # Not a mine, calculate how many mines sorround this tile
+            tile.hidden = False
+            self.empty_tiles -= 1
+            tile.icon = self.sorrounding_mines(x, y)
         else:
-            if not tile.mine:
-                # Not a mine, calculate how many mines sorround this tile
-                tile.hidden = False
-                self.empty_tiles -= 1
-                tile.icon = self.sorrounding_mines(x, y)
-            else:
-                return False
+            tile.icon = '*'
+            print("Game Over!")
+            return False
     
     def sorrounding_mines(self, x, y):
-        return ' '
+        flag_num = 0
+        above_row = [(x + 1, y - 1), (x + 1, y), (x + 1, y + 1)]
+        bottom_row = [(x - 1, y - 1), (x - 1, y), (x - 1, y - 1)]
+        left, right = (x, y - 1), (x, y + 1)
+
+        for coords in above_row:
+            x, y = coords
+            if (x > -1 and x < self.width) and (y > -1 and y < self.height):
+                if self.tiles[x][y].mine == True:
+                    flag_num += 1
+        
+        for coords in bottom_row:
+            x, y = coords
+            if (x > -1 and x < self.width) and (y > -1 and y < self.height):
+                if self.tiles[x][y].mine == True:
+                    flag_num += 1
+        
+        x, y = left
+        if (x > -1 and x < self.width) and (y > -1 and y < self.height):
+            if self.tiles[x][y].mine == True:
+                flag_num += 1
+        
+        x, y = right
+        if (x > -1 and x < self.width) and (y > -1 and y < self.height):
+            if self.tiles[x][y].mine == True:
+                flag_num += 1
+
+        return str(flag_num)
+
+
     
 
     def print_board(self):
@@ -76,5 +105,9 @@ while game_board.empty_tiles > 0:
 
     game_board.print_board()
 
+    if update == False:
+        break
+
 # Part 3 - Player Updates
-player_wins()
+if update:
+    player_wins()
