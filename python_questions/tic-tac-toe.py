@@ -14,13 +14,13 @@ class Tile:
 
 
 class GameBoard:
-    def __init__(self, width=3, height=3):
-        self.width = width
-        self.height = height
+    def __init__(self, size=5):
+        self.width = size
+        self.height = size
         self.tiles = self.init_tiles()
     
     def init_tiles(self):
-        tiles = [[Tile() for x in range(self.width)] for y in range(self.height)]
+        tiles = [[Tile() for y in range(self.height)] for x in range(self.width)]
         return tiles
     
     def update(self, x, y, player):
