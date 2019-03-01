@@ -22,6 +22,7 @@ def reverse_inplace(string):
 # TESTS
 assert(reverse_inplace("jonas") == "sanoj")
 assert(reverse_inplace("bobo") == "obob")
+assert(reverse_inplace("") == "")
 
 # COMPLEXITY
 # Time => O(N)
